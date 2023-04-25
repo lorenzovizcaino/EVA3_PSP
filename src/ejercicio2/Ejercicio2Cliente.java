@@ -23,6 +23,10 @@ public class Ejercicio2Cliente {
             DataOutputStream flujoSalida=new DataOutputStream(cliente.getOutputStream());
             flujoSalida.writeUTF(enviar);
 
+            flujoEntrada.close();
+            flujoSalida.close();
+            cliente.close();
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

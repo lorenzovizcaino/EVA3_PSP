@@ -12,7 +12,7 @@ public class Ejercicio2Servidor {
     public static void main(String[] args) {
         int puerto=6000;
         try {
-            ServerSocket servidor=new ServerSocket(6000);
+            ServerSocket servidor=new ServerSocket(puerto);
             Socket cliente=servidor.accept();
             OutputStream salida=cliente.getOutputStream();
             DataOutputStream flujoSalida=new DataOutputStream(salida);
@@ -21,13 +21,18 @@ public class Ejercicio2Servidor {
             InputStream entrada=cliente.getInputStream();
             DataInputStream flujoEntrada=new DataInputStream(entrada);
             System.out.println("Recibiendo del Cliente: "+flujoEntrada.readUTF());
+
             salida.close();
             flujoSalida.close();
             entrada.close();
             flujoEntrada.close();
+            cliente.close();
+            servidor.close();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 }
