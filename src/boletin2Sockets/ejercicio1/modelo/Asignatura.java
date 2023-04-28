@@ -1,6 +1,8 @@
 package boletin2Sockets.ejercicio1.modelo;
 
-public class Asignatura {
+import java.io.Serializable;
+
+public class Asignatura implements Serializable {
     private int id;
     private String nombreAsig;
 

@@ -1,14 +1,19 @@
 package boletin2Sockets.ejercicio1.modelo;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Profesor {
+public class Profesor implements Serializable {
     private int idProfesor;
     private String nombre;
     private Asignatura[] asignaturas;
     private Especialidad esp;
 
     public Profesor() {
+        this.idProfesor=0;
+        this.nombre="";
+        this.asignaturas=null;
+        this.esp=null;
     }
 
     public Profesor(int idProfesor, String nombre, Asignatura[] asignaturas, Especialidad esp) {

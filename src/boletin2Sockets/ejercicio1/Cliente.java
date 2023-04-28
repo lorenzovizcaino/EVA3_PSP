@@ -3,18 +3,52 @@ package boletin2Sockets.ejercicio1;
 import boletin2Sockets.ejercicio1.modelo.Asignatura;
 import boletin2Sockets.ejercicio1.modelo.Profesor;
 
+import javax.swing.*;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.Socket;
+import java.util.Scanner;
+
 public class Cliente {
-    public static Profesor[] profesores;
-    public static void main(String[] args) {
-        CrearDatos();
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        String host="localhost";
+        int puerto=6000;
+        Socket cliente=new Socket(host,puerto);
+
+        Scanner entrada=new Scanner(System.in);
+        String cadena="";
+        Profesor profesor;
+        DataOutputStream dataOutputStream = null;
+        ObjectInputStream objectInputStream = null;
+        while(!cadena.equals("*")){
+            System.out.println("Id del profesor a consultar");
+            cadena=entrada.nextLine();
+            //cadena=JOptionPane.showInputDialog("Id del profesor a consultar");
+
+
+
+            if(!cadena.equals("*")){
+                dataOutputStream=new DataOutputStream(cliente.getOutputStream());
+                dataOutputStream.writeUTF(cadena);
+                objectInputStream=new ObjectInputStream(cliente.getInputStream());
+                profesor= (Profesor) objectInputStream.readObject();
+                System.out.println("Datos del profesor");
+                System.out.println(profesor.toString());
+
+
+            }else{
+
+            }
+
+
+        }
+        dataOutputStream.close();
+        objectInputStream.close();
+        cliente.close();
+
     }
 
-    private static void CrearDatos() {
-        profesores=new Profesor[5];
-        Asignatura linguaxedemarcas=new Asignatura(1,"Linguaxe de marcas");
-        Asignatura programacion=new Asignatura(2,"Programacion");
-        Asignatura Contornos=new Asignatura(3,"Contornos de Desarrollo");
-        Asignatura sistemas=new Asignatura(4,"Sistemas informaticos");
-        Asignatura basesdedatos=new Asignatura(5,"Bases de datos");
-    }
+
 }
