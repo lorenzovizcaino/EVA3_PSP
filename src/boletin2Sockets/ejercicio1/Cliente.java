@@ -13,42 +13,31 @@ import java.util.Scanner;
 public class Cliente {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        String host="localhost";
-        int puerto=6000;
-        Socket cliente=new Socket(host,puerto);
-
-        Scanner entrada=new Scanner(System.in);
-        String cadena="";
+        String host = "localhost";
+        int puerto = 6000;
+        Socket cliente = new Socket(host, puerto);
+        Scanner entrada = new Scanner(System.in);
+        String cadena = "";
         Profesor profesor;
         DataOutputStream dataOutputStream = null;
         ObjectInputStream objectInputStream = null;
-        while(!cadena.equals("*")){
+        while (!cadena.equals("*")) {
             System.out.println("Id del profesor a consultar");
-            cadena=entrada.nextLine();
-            //cadena=JOptionPane.showInputDialog("Id del profesor a consultar");
-
-
-
-            if(!cadena.equals("*")){
-                dataOutputStream=new DataOutputStream(cliente.getOutputStream());
+            cadena = entrada.nextLine();
+            if (!cadena.equals("*")) {
+                dataOutputStream = new DataOutputStream(cliente.getOutputStream());
                 dataOutputStream.writeUTF(cadena);
-                objectInputStream=new ObjectInputStream(cliente.getInputStream());
-                profesor= (Profesor) objectInputStream.readObject();
+                objectInputStream = new ObjectInputStream(cliente.getInputStream());
+                profesor = (Profesor) objectInputStream.readObject();
                 System.out.println("Datos del profesor");
                 System.out.println(profesor.toString());
-
-
-            }else{
-
+            } else {
+                dataOutputStream = new DataOutputStream(cliente.getOutputStream());
+                dataOutputStream.writeUTF(cadena);
             }
-
-
         }
         dataOutputStream.close();
         objectInputStream.close();
         cliente.close();
-
     }
-
-
 }
