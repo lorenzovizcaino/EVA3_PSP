@@ -1,10 +1,9 @@
-package ejercicio4;
+package ejercicio4UDP;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.InetAddress.*;
 
 public class actividad3_6Servidor {
 
